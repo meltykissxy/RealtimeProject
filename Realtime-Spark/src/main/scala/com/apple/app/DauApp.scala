@@ -13,10 +13,10 @@ import org.apache.spark.SparkConf
 import org.apache.spark.streaming.dstream.{DStream, InputDStream}
 import org.apache.spark.streaming.kafka010.{HasOffsetRanges, OffsetRange}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
-import redis.clients.jedis.Jedis
+
+import com.apple.utils.PropertiesUtil
 
 import scala.collection.mutable.ListBuffer
-
 
 //使用手动后置提交偏移量     做幂等性存储处理
 
@@ -34,7 +34,7 @@ object DauApp {
     1读取偏移量初始值
         从redis中读取偏移量的数据，
             偏移量在redis中以什么样的格式保存
-            主题-消费者组-分区-offset
+            Topic-Consumer group-Partition-offset
     2加载数据
        如果能取得偏移量则从偏移量位置取得数据量 否则 从最新的位置取得数据流
     3获得偏移量结束点
@@ -45,8 +45,8 @@ object DauApp {
     val sparkConf: SparkConf = new SparkConf().setMaster("local[4]").setAppName("dau_app")
     //1 业务对时效的需求  2 处理业务的计算时间  尽量保证周期内可以处理完当前批次
     val ssc = new StreamingContext(sparkConf, Seconds(5))
-    val topic = "ODS_BASE_LOG"
-    val groupid = "dau_app_group"
+    val prop = PropertiesUtil.load("config.properties")
+    val (topic, groupid)=(prop.getProperty("Kafka.topic"),prop.getProperty("Kafka.groupid"))
 
     val offsetMap: Map[TopicPartition, Long] = OffsetManagerUtil.getOffset(topic, groupid)
     var inputDstream: InputDStream[ConsumerRecord[String, String]] = null

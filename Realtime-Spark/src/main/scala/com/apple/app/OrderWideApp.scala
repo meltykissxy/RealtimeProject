@@ -8,8 +8,6 @@ import com.alibaba.fastjson.serializer.SerializeConfig
 import com.alibaba.fastjson.{JSON, JSONObject}
 import com.apple.bean.{OrderDetail, OrderInfo, OrderWide}
 import com.apple.utils.{HbaseUtil, MyEsUtil, MykafkaUtil, OffsetManagerUtil, RedisUtil}
-import org.apache.commons.lang3.StringUtils
-import org.apache.commons.lang3.time.DateUtils
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.TopicPartition
 import org.apache.spark.SparkConf
