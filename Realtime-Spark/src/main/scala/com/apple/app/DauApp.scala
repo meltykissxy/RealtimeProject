@@ -64,12 +64,9 @@ object DauApp {
       // driver ? executor? dr //在dr中周期性 执行  可以写在 transform中，或者从rdd中提取数据比如偏移量
       val hasOffsetRanges: HasOffsetRanges = rdd.asInstanceOf[HasOffsetRanges]
       offsetRanges = hasOffsetRanges.offsetRanges
-      //            rdd.map{a=> //driver ? executor? ex
-      //            }
+
       rdd
     }
-
-
     //把ts 转换成日期 和小时 为后续便于处理
     val jsonObjDstream: DStream[JSONObject] = inputDstreamWithOffsetDstream.map { record =>
       val jsonString: String = record.value()
