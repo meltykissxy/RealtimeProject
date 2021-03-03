@@ -11,7 +11,6 @@ import org.apache.hadoop.hbase.client.{Connection, ConnectionFactory, Get, Put, 
 import org.apache.hadoop.hbase.util.Bytes
 
 import scala.collection.mutable
-import scala.collection.mutable.ListBuffer
 
 object HbaseUtil {
 
@@ -21,9 +20,6 @@ object HbaseUtil {
   val HBASE_SERVER=properties.getProperty("hbase.server")
   val DEFAULT_FAMILY=properties.getProperty("hbase.default.family")
   val NAMESPACE=properties.getProperty("hbase.namespace")
-
-
-
 
   def put(tableName:String ,rowKey:String,columnValueMap: java.util.Map[String,AnyRef]): Unit ={
     if(connection==null) init()  //连接
@@ -81,15 +77,11 @@ object HbaseUtil {
       resultMap.put(rowkey,jsonObj)
     }
     resultMap
-
-
   }
-
 
   def  getDimRowkey(id:String): String ={
     StringUtils.leftPad(id, 10, "0").reverse
   }
-
 
   def init(): Unit ={
     val configuration: Configuration = HBaseConfiguration.create()

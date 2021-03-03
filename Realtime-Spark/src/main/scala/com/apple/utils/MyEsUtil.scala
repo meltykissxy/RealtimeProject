@@ -78,7 +78,6 @@ object MyEsUtil {
     bulkBuilder.defaultIndex(indexName).defaultType(DEFAULT_TYPE)
     val bulk = bulkBuilder.build()
     val items: util.List[BulkResult#BulkResultItem] = jest.execute(bulk).getItems
-    println("已保存："+items.size()+"条")
     jest.close()
   }
 
