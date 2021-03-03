@@ -24,9 +24,9 @@ object RedisUtil {
     jedisPool.getResource
   }
 
-//  def main(args: Array[String]): Unit = {
-//    val jedisClient = getJedisClient
-//    println(jedisClient.ping())
-//    jedisClient.close()
-//  }
+  def main(args: Array[String]): Unit = {
+    val jedisClient = getJedisClient
+    println(jedisClient.ping())
+    jedisClient.close()
+  }
 }
